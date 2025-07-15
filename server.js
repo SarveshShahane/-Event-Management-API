@@ -10,6 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/events", eventRoutes);
 
+
+
 connectDB()
   .then(() => {
     app.listen(PORT, () => {

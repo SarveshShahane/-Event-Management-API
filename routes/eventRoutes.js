@@ -11,6 +11,9 @@ import {
 //Route to create a new event
 router.post("/create", createEvent);
 
+//upcoming events
+router.get("/upcoming", upcomingEvents);
+
 //Route to get event details
 router.get("/:id", eventDetails);
 
@@ -19,9 +22,6 @@ router.post("/:id/register", registerForEvent);
 
 //cancel registration
 router.delete("/:id/cancel", cancelRegistration);
-
-//upcoming events
-router.get("/upcoming", upcomingEvents);
 
 //event stats
 router.get("/:id/stats", getStats);

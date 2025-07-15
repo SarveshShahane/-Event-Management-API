@@ -1,8 +1,6 @@
 import Event from "../models/eventModel.js";
 import User from "../models/userModel.js";
 
-
-
 //create event logic
 export const createEvent = async (req, res) => {
   try {
@@ -34,7 +32,6 @@ export const createEvent = async (req, res) => {
   }
 };
 
-
 //event details logic
 export const eventDetails = async (req, res) => {
   const { id } = req.params;
@@ -52,11 +49,17 @@ export const eventDetails = async (req, res) => {
   }
 };
 
+//register for event logic
 export const registerForEvent = async (req, res) => {
   const { id } = req.params;
   const { name, email } = req.body;
   if (!name || !email) {
     return res.status(400).json({ message: "Name and email are required" });
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ message: "Invalid email format" });
   }
   try {
     const event = await Event.findById(id);
@@ -95,7 +98,6 @@ export const registerForEvent = async (req, res) => {
   }
 };
 
-
 //cancel registration logic
 export const cancelRegistration = async (req, res) => {
   const { id } = req.params;
@@ -130,17 +132,15 @@ export const cancelRegistration = async (req, res) => {
   }
 };
 
-
 //upcoming events logic
 export const upcomingEvents = async (req, res) => {
   try {
     const events = await Event.find({
       dateTime: { $gte: new Date() },
     });
-
     events.sort((a, b) => {
       const dateDifference = new Date(a.dateTime) - new Date(b.dateTime);
-      if (dateDifference > 0) return dateDifference;
+      if (dateDifference !== 0) return dateDifference;
 
       return a.location.localeCompare(b.location);
     });
@@ -150,7 +150,6 @@ export const upcomingEvents = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
 
 //event stats logic
 export const getStats = async (req, res) => {
