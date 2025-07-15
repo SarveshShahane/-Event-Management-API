@@ -215,5 +215,3 @@ This project is licensed under the ISC License.
 - GitHub: [@SarveshShahane](https://github.com/SarveshShahane)
 
 ---
-
-**Note**: Remember to move the `/upcoming` route before the `/:id` route in `eventRoutes.js` to avoid route conflicts!
